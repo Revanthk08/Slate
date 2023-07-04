@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.container{
+  background-color: #030303;
+  height: 100vh;
+}
+.rect,.manual,.authservices{
+  display: flex;
+}
+.manual,.authservices{
+  flex-direction: column;
+}
+.join{
+  color: #FF7300;
+}
