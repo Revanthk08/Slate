@@ -14,6 +14,11 @@ code {
 .container{
   background-color: #030303;
   height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  flex: 1;
 }
 .rect,.manual,.authservices{
   display: flex;
@@ -23,4 +28,10 @@ code {
 }
 .join{
   color: #FF7300;
+}
+.heading{
+  height: 33%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
