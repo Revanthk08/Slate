@@ -5,11 +5,11 @@ const Login = () => {
     <div className='container'>
         <div className="heading">
             <img src="" alt="" />
-            <h1>Sign in to <span>Slate.</span></h1>
+            <h1 className='font-display text-xl text-heading1'>Sign in to <span className='text-orange'>Slate.</span></h1>
         </div>
         <div className="rect">
-            <div className="manual">
-                <input type="text" name="username" />
+            <div className="manual  border-black ">
+                <input className='w-[30em] h-[89px] flex-shrink-0 rounded-3xl ' type="text" name="username" />
                 <input type="password" name="password" />
                 <button>Login</button>
             </div>
@@ -22,7 +22,7 @@ const Login = () => {
             </div>
         </div>
         <div className="bottom">
-            <p>Aren't you into Slate?<span className='join'>Join in.</span></p>
+            <p className='text-common text-nm+'>Aren't you into Slate?<span className='text-orange text-nm+ cursor-pointer font-display'>Join in.</span></p>
         </div>
     </div>
   )
