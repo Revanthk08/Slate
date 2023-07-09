@@ -1,16 +1,16 @@
 import React from 'react'
 import '../index.css';
-import logo from '../assets/logo.svg';
 const Login = () => {
   return (
     <div className='container'>
         <div className="heading">
-            <img src={logo} alt="logo" />
+            <img src="" alt="" />
             <h1>Sign in to <span>Slate.</span></h1>
         </div>
         <div className="rect">
             <div className="manual">
                 <input type="text" name="username" />
+                <input type="password" name="password" />
                 <input type="password" name="password" />
                 <button>Login</button>
             </div>

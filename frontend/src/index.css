@@ -12,7 +12,7 @@ code {
     monospace;
 }
 .container{
-  background-color: #030303;
+  /* background-color: #030303; */
   height: 100vh;
   display: flex;
   align-items: center;
@@ -34,4 +34,9 @@ code {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.heading img{
+  height: 101px;
+  width: 83px;
 }
