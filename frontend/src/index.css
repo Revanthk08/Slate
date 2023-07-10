@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 
+.root {
+  align-content: center;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -19,11 +23,13 @@ code {
 .container{
   /* background-color: #030303; */
   height: 100vh;
+  width: 100vw;
+  justify-self: center;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
-  flex: 1;
+  /* flex: 1; */
 }
 .rect,.manual,.authservices{
   display: flex;
@@ -35,8 +41,8 @@ code {
   color: #FF7300;
 } */
 .heading{
-  height: 33%;
-  width: 100%;
+  /* height: 33%; */
+  /* width: 100%; */
   display: flex;
   justify-content: center;
 }

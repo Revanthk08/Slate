@@ -3,14 +3,14 @@ import '../index.css';
 import logo from '../assets/logo.svg';
 const Login = () => {
   return (
-    <div className='container'>
+    <div className='container w-[100%] '>
         <div className="heading">
             <img src={logo} alt="logo" />
             <h1 className='font-display text-xl text-heading1'>Sign in to <span className='text-orange'>Slate.</span></h1>
         </div>
         <div className="rect">
             <div className="manual  border-black ">
-                <input className='w-[30em] h-[89px] flex-shrink-0 rounded-3xl ' type="text" name="username" />
+                <input className='w-[542.92] h-[80px] flex-shrink-0 rounded-l ' type="text" name="username" />
                 <input type="password" name="password" />
                 <button>Login</button>
             </div>

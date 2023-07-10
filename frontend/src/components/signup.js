@@ -11,7 +11,7 @@ const Login = () => {
             <div className="manual">
                 <input type="text" name="username" />
                 <input type="password" name="password" />
-                <input type="password" name="password" />
+                <input type="password" name="-re-password" />
                 <button>Login</button>
             </div>
             <div className='slash'>
