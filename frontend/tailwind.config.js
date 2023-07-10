@@ -13,16 +13,16 @@ module.exports = {
       },
 
       fontSize: {
-        xl: '3.75rem',
-        nm: '1.75rem',
+        xl: '2.75rem',
+        nm: '1rem',
        'nm+' : '1.875rem',
        'nm++' : '2.5rem',
       },
 
-      fontFamily: {
-        'display' : 'Pretendard'
+      fontFamily :{
+        Bold: ["Bold","sans-serif"],
+        semiBold: ["semiBold","sans"],
       }
-
 
     },
   },
