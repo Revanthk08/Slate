@@ -1,9 +1,9 @@
 import './App.css';
 // import Login from './components/login';
-import Signup from './components/signup';
+import OtpPage from './components/optPage';
 function App() {
   return (
-      <Signup/>
+      <OtpPage/>
   );
 }
 
