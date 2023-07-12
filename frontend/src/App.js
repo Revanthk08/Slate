@@ -1,10 +1,15 @@
-import './App.css';
-// import Login from './components/login';
-import OtpPage from './components/optPage';
+import "./App.css";
+import Signup from "./components/signup";
+import Login from "./components/login";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
-  return (
-      <OtpPage/>
-  );
+  <BrowserRouter>
+    <Routes>
+      <Route path="/">
+        <Route path="login" component={<Login />} />
+        <Route path="signup" component={<Signup />} />
+      </Route>
+    </Routes>
+  </BrowserRouter>;
 }
-
 export default App;
