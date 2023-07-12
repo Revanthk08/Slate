@@ -51,7 +51,7 @@ const Signup = () => {
     return errors;
   };
   return (
-    <div className="container w-[100%] ">
+    <div className="container2 w-[100%] ">
       <div className="flex items-center gap-4">
         <img src={logo} className="w-[6rem] h-[6rem]" alt="logo" />
         <h1 className="text-xl text-heading1 font-Bold">
@@ -63,12 +63,12 @@ const Signup = () => {
           <div>
             <input
               className="w-[29rem] h-[3.5rem] bg-[#232223] rounded-lg font-semiBold pl-5 text-white placeholder-placeholder"
-              placeholder="Username"
+              placeholder="Email ID"
               type="email"
               name="Email ID"
               onChange={(e) => handleMail(e)}
             />
-            <p className="font-semiBold text-orange pt-2 pl-2">
+            <p className="font-reg text-nm text-orange pl-2">
               {errors.email}
             </p>
           </div>
@@ -80,7 +80,7 @@ const Signup = () => {
               name="password"
               onChange={(e) => handlepassword(e)}
             />
-            <p className="font-semiBold text-orange pt-2 pl-2">
+            <p className="font-reg text-nm text-orange pl-2">
               {errors.password}
             </p>
           </div>
@@ -92,7 +92,7 @@ const Signup = () => {
               name="password"
               onChange={(e) => handleCpassword(e)}
             />
-            <p className="font-semiBold text-orange pt-2 pl-2">
+            <p className="font-reg text-nm text-orange pl-2">
               {errors.repass}
             </p>
           </div>
@@ -150,9 +150,9 @@ const Signup = () => {
       </div>
       <div className="bottom mb-8">
         <p className="text-common text-nm font-semiBold">
-          Aren't you into Slate?{" "}
+        Are you into Slate? {" "}
           <span className="text-orange cursor-pointer font-semiBold" >
-            Join in.
+          Join back.
           </span>
         </p>
       </div>

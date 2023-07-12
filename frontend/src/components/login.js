@@ -60,7 +60,7 @@ const Login = () => {
               name="username"
               onChange={(e) => handleName(e)}
             />
-            <p className="font-semiBold text-orange pt-2 pl-2">{errors.username}</p>
+            <p className="font-reg text-nm text-orange pl-2">{errors.username}</p>
           </div>
           <div>
             <input
@@ -70,7 +70,7 @@ const Login = () => {
               name="password"
               onChange={(e) => handlepassword(e)}
             />
-            <p className="font-semiBold text-orange pt-2 pl-2">{errors.password}</p>
+            <p className="font-reg text-nm text-orange pl-2">{errors.password}</p>
           </div>
           <button
             className="w-[29rem] h-[3.5rem] bg-orange rounded-lg font-semiBold text-white"
