@@ -1,28 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
-import Backend from './components/Backend';
-
+// import Login from './components/login';
+import OtpPage from './components/optPage';
 function App() {
   return (
-    <div>
-      <Backend />
-    </div>
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
+      <OtpPage/>
   );
 }
 
