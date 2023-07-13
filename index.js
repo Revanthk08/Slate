@@ -48,7 +48,7 @@ app.post('/LogIn', Auth, async (req,res)=>
 })
 //LoginEnd
 
-app.post('/SignUp', async (req,res)=>
+app.post('/SignUp',Auth, async (req,res)=>
 {
     let user = new UserColl({
         UserName : "temp",
@@ -56,7 +56,9 @@ app.post('/SignUp', async (req,res)=>
         Password : jwt.sign({'password':req.body.password},process.env.PASSWORD_SALT)
     });
     let userSaved = await UserColl.create(user);
-    res.cookie('token',jwt.sign(userSaved._id, process.env.ACCESS_TOKEN),{httpOnly:true});
+    let token = jwt.sign({'userId':userSaved._id }, process.env.ACCESS_TOKEN);
+    console.log(token);
+    res.cookie('token',token,{httpOnly:true});
     res.sendStatus(201);
     //return to UserNamePage;
     //res.redirect();
