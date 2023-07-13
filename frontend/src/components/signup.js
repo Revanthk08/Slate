@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import "../index.css";
 import logo from "../assets/logo.svg";
 import ThirdParty from "./Thirdparty";
+import { useNavigate } from 'react-router-dom';
 const Signup = () => {
+
+  const navigate = useNavigate();
+
   const [gmail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
@@ -38,6 +42,8 @@ const Signup = () => {
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(UserData)
     });
+    navigate('/'); //This is the path to redirect user at home page.
+    console.log("ONSIGNUP");
   }
 
   const Validate = (email, pass, pass2) => {

@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import "../index.css";
 import logo from "../assets/logo.svg";
 import ThirdParty from "./Thirdparty";
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
+
+	const navigate = useNavigate();
+
 	const [username, setName] = useState("");
 	const [password, setPassword] = useState("");
 	const [errors, setErrors] = useState({});
@@ -14,6 +18,7 @@ const Login = () => {
 	};
 	const handleSubmit = (e) => {
 		setErrors(Validate(username, password));
+		OnLogin(username,password);
 	};
 	useEffect(() => {
 		console.log(errors);
@@ -22,6 +27,18 @@ const Login = () => {
 			// console.log(username, password);
 		}
 	}, [errors]);
+
+	async function OnLogin(email,pass)
+	{
+	  let UserData = {emailId : email,password:pass};
+	  let response =await fetch('http://localhost:8080/LogIn',{
+		method:'POST',
+		headers:{'Content-Type':'application/json'},
+		body:JSON.stringify(UserData)
+	  });
+	  navigate('/'); //This is the path to redirect user at home page.
+	  console.log("ONLOGIN");
+	}
 
 	const Validate = (name, pass) => {
 		const errors = {};

@@ -32,18 +32,18 @@ app.get('/backend', Auth, (req, res) => {
 app.post('/LogIn', Auth, async (req,res)=>
 {
     let emailId = req.body.emailId;
-    let resultUser = await UserColl.find({UserName:username});
+    let resultUser = await UserColl.find({Email:emailId});
     if(resultUser===null)
     {
         console.log("No User Exists!");
         //return No user found try again
     }
-    let decryptPass= jwt.verify(resultUser.Password,process.env.PASSWORD_SALT);
+    let decryptPass= jwt.verify(resultUser[0].Password,process.env.PASSWORD_SALT);
     if(req.body.password === decryptPass.password)
     {
         console.log("LoggedIn");
-        res.cookie('token',jwt.sign(resultUser._id, process.env.ACCESS_TOKEN),{httpOnly:true});
-        //SignIn User Redirect HomePage
+        res.cookie('token',jwt.sign({'userId':resultUser._id}, process.env.ACCESS_TOKEN),{httpOnly:true});
+        res.sendStatus(201);
     }
 })
 //LoginEnd
@@ -57,11 +57,8 @@ app.post('/SignUp',Auth, async (req,res)=>
     });
     let userSaved = await UserColl.create(user);
     let token = jwt.sign({'userId':userSaved._id }, process.env.ACCESS_TOKEN);
-    console.log(token);
     res.cookie('token',token,{httpOnly:true});
     res.sendStatus(201);
-    //return to UserNamePage;
-    //res.redirect();
 })
 
 async function Auth(req,res,next)
