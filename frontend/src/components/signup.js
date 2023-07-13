@@ -18,6 +18,9 @@ const Signup = () => {
   };
   const handleSubmit = (e) => {
     setErrors(Validate(gmail, password, cpassword));
+    //
+    OnSignUp(gmail,password);
+    console.log("OnSignUp");
   };
   useEffect(() => {
     console.log(errors);
@@ -26,6 +29,16 @@ const Signup = () => {
       // console.log(username, password);
     }
   }, [errors]);
+
+  async function OnSignUp(email,pass)
+  {
+    let UserData = {emailId : email,password:pass};
+    let response =await fetch('http://localhost:8080/SignUp',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(UserData)
+    });
+  }
 
   const Validate = (email, pass, pass2) => {
     const errors = {};

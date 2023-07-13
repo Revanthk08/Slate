@@ -18,4 +18,5 @@ let Users = new mongoose.Schema(
             required:true
         }    
 });
-module.exports = mongoose.model('SlateDb',Users);
+let Schema = mongoose.model('SlateDb',Users);
+export default Schema;

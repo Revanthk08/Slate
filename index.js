@@ -1,4 +1,5 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
@@ -14,9 +15,8 @@ mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DATABASE_LINK, {useNewUrlParser : true});
 let db = mongoose.connection;
 db.on('open',()=>console.log("DB Connected"));
-import UserColl from 'DB_models/User';
 
-
+import UserColl from './DB_models/User.js';
 
 
 app.get('/', (req, res) => {
@@ -29,18 +29,20 @@ app.get('/backend', Auth, (req, res) => {
 })
 
 //LoginStart
-app.post('/SignIn', Auth, async (req,res)=>
+app.post('/LogIn', Auth, async (req,res)=>
 {
-    let username = req.body.username;
+    let emailId = req.body.emailId;
     let resultUser = await UserColl.find({UserName:username});
     if(resultUser===null)
     {
+        console.log("No User Exists!");
         //return No user found try again
     }
     let decryptPass= jwt.verify(resultUser.Password,process.env.PASSWORD_SALT);
-    if(req.body.password === decryptPass)
+    if(req.body.password === decryptPass.password)
     {
-        res.cookie('token',jwt.sign(resultUser._id, process.env.ACCESS_TOKEN, {expiresIn:'48h'}),{httpOnly:true});
+        console.log("LoggedIn");
+        res.cookie('token',jwt.sign(resultUser._id, process.env.ACCESS_TOKEN),{httpOnly:true});
         //SignIn User Redirect HomePage
     }
 })
@@ -48,23 +50,15 @@ app.post('/SignIn', Auth, async (req,res)=>
 
 app.post('/SignUp', async (req,res)=>
 {
-    //UserNameCheck
-    let usersname = req.body.userName;
-    let result = await UserColl.find({UserName:usersname});
-    if(result===null)
-    {
-        //return to try again username taken
-    }
-
     let user = new UserColl({
-        UserName : req.body.userName,
-        Email : req.body.email,
-        Password : jwt.sign(req.body.password,process.env.PASSWORD_SALT)
-    })
-    let userSaved = await UserColl.save(user);
-    res.cookie('token',jwt.sign(userSaved._id, process.env.ACCESS_TOKEN, {expiresIn:'48h'}),{httpOnly:true});
-
-    //return to Homepage;
+        UserName : "temp",
+        Email : req.body.emailId,
+        Password : jwt.sign({'password':req.body.password},process.env.PASSWORD_SALT)
+    });
+    let userSaved = await UserColl.create(user);
+    res.cookie('token',jwt.sign(userSaved._id, process.env.ACCESS_TOKEN),{httpOnly:true});
+    res.sendStatus(201);
+    //return to UserNamePage;
     //res.redirect();
 })
 
@@ -72,8 +66,9 @@ async function Auth(req,res,next)
 {
     try
     {
+        if(req.cookie.token===null){ /* return */ next();}
         let UserId = jwt.verify(req.cookies.token,process.env.ACCESS_TOKEN);
-        let user = await UserColl.findById(UserId);
+        let user =await UserColl.findById(UserId);
         if(user !=null)
         {
             req.user = user
@@ -85,7 +80,9 @@ async function Auth(req,res,next)
         }
     }
     catch{
-        //Error in Autherization Re-Login
+        console.log("Auth-error");
+        next();
+        //Error in Autherization
     }
 }
 
