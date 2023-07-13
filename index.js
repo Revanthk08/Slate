@@ -28,6 +28,12 @@ app.get('/backend', Auth, (req, res) => {
     res.send("Hello from "+req.user.UserName);
 })
 
+app.post('/VerifyUserEmail',async (req,res)=>
+{
+    let resultUser = await UserColl.find({Email:req.body.emailId})
+    (resultUser!=null)? res.json({'UserAvailable':true}).sendStatus(201):res.json({'UserAvailable':false});
+})
+
 //LoginStart
 app.post('/LogIn', Auth, async (req,res)=>
 {
