@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
   font-family: "Bold";
   src: url("../public/fonts/Pretendard-Bold.otf");
@@ -11,17 +10,21 @@
   font-family: "semiBold";
   src: url("../public/fonts/Pretendard-SemiBold.otf");
 }
+@font-face {
+  font-family: "reg";
+  src: url("../public/fonts/Pretendard-Regular.otf");
+}
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 @media only screen and (max-width: 1560px) {
@@ -30,8 +33,8 @@ code {
     display: flex;
     justify-content: center;
   }
-} 
-.container{
+}
+.container {
   height: 100vh;
   width: 100vw;
   justify-self: center;
@@ -39,16 +42,29 @@ code {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 3rem;
+  gap: 6rem;
   /* flex: 1; */
 }
-.rect,.manual,.authservices{
+.container2 {
+  height: 100vh;
+  width: 100vw;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4rem;
+  /* flex: 1; */
+}
+.rect,
+.manual,
+.authservices {
   display: flex;
 }
-.manual,.authservices{
+.manual,
+.authservices {
   flex-direction: column;
 }
 /* .join{
   color: #FF7300;
 } */
-
