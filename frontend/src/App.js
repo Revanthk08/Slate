@@ -1,6 +1,6 @@
 import './App.css';
 // import Login from './components/login';
-import OtpPage from './components/optPage';
+import OtpPage from './components/signup';
 function App() {
   return (
       <OtpPage/>

@@ -4,6 +4,12 @@ import logo from "../assets/logo.svg";
 import google from "../assets/google_logo.svg";
 import apple from "../assets/apple-logo.svg";
 import facebook from "../assets/facebook-logo.svg";
+
+function OnSignUpClick()
+{
+  
+}
+
 const Signup = () => {
   return (
     <div className="container w-[100%] ">
@@ -33,7 +39,7 @@ const Signup = () => {
             placeholder="Re-enter Password"
             name="password"
           />
-          <button className="w-[29rem] h-[3.5rem] bg-orange rounded-lg font-semiBold text-white">
+          <button className="w-[29rem] h-[3.5rem] bg-orange rounded-lg font-semiBold text-white" onClick={OnSignUpClick}>
             Sign up
           </button>
         </div>
