@@ -8,6 +8,7 @@ module.exports = {
         orange: "#FF7300",
         placeholder: "#4C4C4C",
         common: "#B8B8B8",
+        text: "#A7A7A7",
       },
 
       fontSize: {
