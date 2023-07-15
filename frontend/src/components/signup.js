@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../index.css";
 import logo from "../assets/logo.svg";
-import google from "../assets/google_logo.svg";
-import apple from "../assets/apple-logo.svg";
-import facebook from "../assets/facebook-logo.svg";
-import axios from "axios";
-import { response } from "express";
-
-
-const Axios = axios();
-
-// start of the component 
+import ThirdParty from "./Thirdparty";
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 const Signup = () => {
+  const navigate = useNavigate();
+
   const [gmail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
@@ -36,6 +31,9 @@ const Signup = () => {
   const handleSubmit = (e) => {
     setSubmitted(true)
     setErrors(Validate(gmail, password, cpassword));
+    //
+    OnSignUp(gmail,password);
+    console.log("OnSignUp");
   };
 
   //backend SignUp calling 
@@ -46,6 +44,62 @@ const Signup = () => {
       // console.log(username, password);
     }
   }, [errors]);
+
+  useEffect(()=>
+  {
+    console.log("OnPageLoad");
+    AuthUser();
+  },[])
+
+  async function AuthUser()
+  {
+    let response = await axios.post('http://localhost:8080/AuthUser',undefined,{withCredentials:true,headers:{'Content-Type':'application/json', Authorization:`Bearer ${document.cookie}`}});
+    console.log(response);
+    if(response.data.UserExist) navigate('/');
+  }
+
+  async function OnSignUp(email,pass)
+  {
+    let UserData = {emailId : email,password:pass};
+    let response =await axios.post('http://localhost:8080/SignUp',UserData,{
+      withCredentials:true,
+      headers:{'Content-Type':'application/json', Authorization : `Bearer ${document.cookie}`}
+    });
+    console.log('Response: '+response.data.token);
+    document.cookie="token="+(response.data.token);
+    let res = await axios.post('http://localhost:8080/SignUp',null,{withCredentials:true,headers:{'Content-Type':'application/json', Authorization : `Bearer ${document.cookie}`}});
+    
+    navigate('/'); //This is the path to redirect user at OTP page.
+    console.log("ONSIGNUP");
+  }
+
+  useEffect(()=>
+  {
+    console.log("OnPageLoad");
+    AuthUser();
+  },[])
+
+  async function AuthUser()
+  {
+    let response = await axios.post('http://localhost:8080/AuthUser',undefined,{withCredentials:true,headers:{'Content-Type':'application/json', Authorization:`Bearer ${document.cookie}`}});
+    console.log(response);
+    if(response.data.UserExist) navigate('/');
+  }
+
+  async function OnSignUp(email,pass)
+  {
+    let UserData = {emailId : email,password:pass};
+    let response =await axios.post('http://localhost:8080/SignUp',UserData,{
+      withCredentials:true,
+      headers:{'Content-Type':'application/json', Authorization : `Bearer ${document.cookie}`}
+    });
+    console.log('Response: '+response.data.token);
+    document.cookie="token="+(response.data.token);
+    let res = await axios.post('http://localhost:8080/SignUp',null,{withCredentials:true,headers:{'Content-Type':'application/json', Authorization : `Bearer ${document.cookie}`}});
+    
+    navigate('/'); //This is the path to redirect user at OTP page.
+    console.log("ONSIGNUP");
+  }
 
 
   //sending email for verification to the backend
@@ -146,56 +200,14 @@ const Signup = () => {
             Sign up
           </button>
         </div>
-        <div className="flex items-center">
-          <p className="text-heading1 font-Bold text-xl">/</p>
-        </div>
-        <div className="flex flex-col gap-7 justify-center">
-          <div>
-            <button
-              className="inline-flex items-center gap-2 justify-center w-[29rem] h-[3.5rem] bg-[#232223] rounded-lg font-semiBold text-[#B8B8B8]"
-              type="button"
-            >
-              <img
-                src={google}
-                className="w-[2.5rem] h-[2.5rem]"
-                alt="google"
-              ></img>
-              Sign in with Google
-            </button>
-          </div>
-          <div>
-            <button
-              className="inline-flex items-center gap-2 justify-center w-[29rem] h-[3.5rem] bg-[#232223] rounded-lg font-semiBold text-[#B8B8B8]"
-              type="button"
-            >
-              <img
-                src={apple}
-                className="w-[2.5rem] h-[2.5rem]"
-                alt="google"
-              ></img>
-              Sign in with Apple
-            </button>
-          </div>
-          <div>
-            <button
-              className="inline-flex items-center gap-2 justify-center w-[29rem] h-[3.5rem] bg-[#232223] rounded-lg font-semiBold text-[#B8B8B8] "
-              type="button"
-            >
-              <img
-                src={facebook}
-                className="w-[2.5rem] h-[2.5rem]"
-                alt="google"
-              ></img>
-              Sign in with Facebook
-            </button>
-          </div>
-        </div>
+
+        <ThirdParty />
       </div>
       <div className="bottom mb-8">
         <p className="text-common text-nm font-semiBold">
-          Are you into Slate?{" "}
-          <span className="text-orange cursor-pointer font-semiBold">
-            Join back.
+        Are you into Slate? {" "}
+          <span className="text-orange cursor-pointer font-semiBold" >
+          Join back.
           </span>
         </p>
       </div>
