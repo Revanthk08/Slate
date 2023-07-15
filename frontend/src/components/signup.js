@@ -60,7 +60,7 @@ const Signup = () => {
         <div className=" flex flex-col  border-black gap-7 ">
           <div>
             <input
-              className="w-[29rem] h-[3.5rem] bg-[#232223] rounded-lg font-semiBold pl-5 text-white placeholder-placeholder"
+              className="w-[29rem] h-[3.5rem] bg-[#232223] focus:outline-0 rounded-lg font-semiBold pl-5 text-white placeholder-placeholder"
               placeholder="Email ID"
               type="email"
               name="Email ID"
@@ -72,7 +72,7 @@ const Signup = () => {
           </div>
           <div>
             <input
-              className="w-[29rem] h-[3.5rem] bg-[#232223] rounded-lg font-semiBold pl-5 text-white placeholder-placeholder"
+              className="w-[29rem] h-[3.5rem] bg-[#232223] rounded-lg font-semiBold pl-5 focus:outline-0 text-white placeholder-placeholder"
               type="Password"
               placeholder="Password"
               name="password"
@@ -84,7 +84,7 @@ const Signup = () => {
           </div>
           <div>
             <input
-              className="w-[29rem] h-[3.5rem] bg-[#232223] rounded-lg font-semiBold pl-5 text-white placeholder-placeholder"
+              className="w-[29rem] h-[3.5rem] bg-[#232223] rounded-lg font-semiBold pl-5 focus:outline-0 text-white placeholder-placeholder"
               type="Password"
               placeholder="Re-enter Password"
               name="password"

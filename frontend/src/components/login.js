@@ -52,7 +52,7 @@ const Login = () => {
 				<div className="manual  border-black gap-7 ">
 					<div>
 						<input
-							className="border-none w-[29rem] h-[3.5rem] bg-[#232223] rounded-lg font-semiBold pl-5 text-white placeholder-placeholder"
+							className="border-none focus:outline-0 w-[29rem] h-[3.5rem] bg-[#232223] rounded-lg font-semiBold pl-5 text-white placeholder-placeholder"
 							placeholder="Username"
 							type="text"
 							name="username"
@@ -62,7 +62,7 @@ const Login = () => {
 					</div>
 					<div>
 						<input
-							className="border-none w-[29rem] h-[3.5rem] bg-[#232223] rounded-lg font-semiBold px-5 text-white placeholder-placeholder"
+							className="border-none focus:outline-0 w-[29rem] h-[3.5rem] bg-[#232223] rounded-lg font-semiBold px-5 text-white placeholder-placeholder"
 							type="Password"
 							placeholder="Password"
 							name="password"
