@@ -3,6 +3,7 @@ import "../index.css";
 import logo from "../assets/logo.svg";
 import ThirdParty from "./Thirdparty";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 const Login = () => {
 
 	const navigate = useNavigate();
@@ -27,6 +28,21 @@ const Login = () => {
 			// console.log(username, password);
 		}
 	}, [errors]);
+
+	useEffect(()=>
+  {
+    console.log("OnPageLoad");
+    AuthUser();
+  },[])
+
+
+	async function AuthUser()
+	{
+	  let response = await axios.post('http://localhost:8080/AuthUser',undefined,{withCredentials:true,headers:{'Content-Type':'application/json', Authorization:`Bearer ${document.cookie}`}});
+	  console.log(response);
+	  if(response.data.UserExist) navigate('/');
+	}
+  
 
 	async function OnLogin(email,pass)
 	{

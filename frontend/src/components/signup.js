@@ -3,8 +3,8 @@ import "../index.css";
 import logo from "../assets/logo.svg";
 import ThirdParty from "./Thirdparty";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 const Signup = () => {
-
   const navigate = useNavigate();
 
   const [gmail, setMail] = useState("");
@@ -34,15 +34,31 @@ const Signup = () => {
     }
   }, [errors]);
 
+  useEffect(()=>
+  {
+    console.log("OnPageLoad");
+    AuthUser();
+  },[])
+
+  async function AuthUser()
+  {
+    let response = await axios.post('http://localhost:8080/AuthUser',undefined,{withCredentials:true,headers:{'Content-Type':'application/json', Authorization:`Bearer ${document.cookie}`}});
+    console.log(response);
+    if(response.data.UserExist) navigate('/');
+  }
+
   async function OnSignUp(email,pass)
   {
     let UserData = {emailId : email,password:pass};
-    let response =await fetch('http://localhost:8080/SignUp',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(UserData)
+    let response =await axios.post('http://localhost:8080/SignUp',UserData,{
+      withCredentials:true,
+      headers:{'Content-Type':'application/json', Authorization : `Bearer ${document.cookie}`}
     });
-    navigate('/'); //This is the path to redirect user at home page.
+    console.log('Response: '+response.data.token);
+    document.cookie="token="+(response.data.token);
+    let res = await axios.post('http://localhost:8080/SignUp',null,{withCredentials:true,headers:{'Content-Type':'application/json', Authorization : `Bearer ${document.cookie}`}});
+    
+    navigate('/'); //This is the path to redirect user at OTP page.
     console.log("ONSIGNUP");
   }
 

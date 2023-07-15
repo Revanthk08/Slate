@@ -16,7 +16,11 @@ let Users = new mongoose.Schema(
         {
             type:String,
             required:true
-        }    
+        },
+        EmailVerOtp :
+        {
+            type:String
+        }
 });
 let Schema = mongoose.model('users',Users);
 export default Schema;
