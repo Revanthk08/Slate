@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({path:'./ENV/.env'});
 import express from 'express';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
@@ -18,6 +18,7 @@ let db = mongoose.connection;
 db.on('open',()=>console.log("DB Connected"));
 
 import UserColl from './DB_models/User.js';
+import Tempuser from './DB_models/TempUser.js';
 import otpDb from './DB_models/OTP.js';
 
 app.get('/', (req, res) => {
@@ -42,20 +43,20 @@ app.post('/sendOTPmail',Auth,async (req,res)=>
     
     let OTP = (Date.now().toString()).slice(6,13);
     let d = Date();
-    if(await otpDb.find({_id:req.user._id}).length !=0)
+    if(await otpDb.find({_id:req.tempuser._id}).length !=0)
     {
-        await otpDb.findByIdAndUpdate({UserObjId:req.user._id},{$set:{EmailVerOtp:OTP,date:d.getUTCDate()}},()=>console.log("OTP Set Success")); 
+        await otpDb.findByIdAndUpdate({UserObjId:req.tempuser._id},{$set:{EmailVerOtp:OTP,date:d.getUTCDate()}},()=>console.log("OTP Set Success")); 
     }
     else{
         let newotp = new otpDb(
         {
-            UserObjId:req.user._id,
+            UserObjId:req.tempuser._id,
             EmailVerOtp:OTP,
             date:d.getUTCDate()
         });
         await otpDb.create(newotp);
     }
-    let response = UserColl.find({_id:req.user._id});
+    let response = UserColl.find({_id:req.tempuser._id});
     let mail = {
         from: process.env.MAILID,
         to:response.Email,
@@ -69,9 +70,9 @@ app.post('/sendOTPmail',Auth,async (req,res)=>
     res.sendstatus(201);
 })
 
-app.get('/VerifyOTP', Auth, async (req,res)=>
+app.get('/VerifyOTP', async (req,res)=>
 {
-    let response = await otpDb.find({UserObjId:req.user._id});
+    let response = await otpDb.find({UserObjId:req.tempuser._id});
     if((response.EmailVerOtp).toString()==req.body.otp)
     {
         //User Verified redirect to UserName Page
@@ -110,14 +111,28 @@ app.post('/LogIn', async (req,res)=>
 
 app.post('/SignUp', async (req,res)=>
 {
+    let tempUser = await Tempuser.find({_id:req.body.tempuserId});
     let user = new UserColl({
-        UserName : "temp",
-        Email : req.body.emailId,
-        Password : jwt.sign({'password':req.body.password},process.env.PASSWORD_SALT)
+        UserName : req.body.userName,
+        Email : tempUser.Email,
+        Password : jwt.sign({'password':(jwt.verify(tempUser.password,process.env.PASSWORD_SALT)).password},process.env.PASSWORD_SALT)
     });
     let userSaved = await UserColl.create(user);
     let token = jwt.sign({'userId':userSaved._id}, process.env.ACCESS_TOKEN);
+    await TempUser.deleteOne({_id:req.body.tempUser});
+    await Tempuser.deleteMany({date:{$ne:d.getUTCDate()}});
     res.status(201).json({'token':token});
+})
+
+app.post('/AddTempUser',async (req,res)=>
+{
+    let tempUser = new Tempuser(
+        {
+            Email: req.body.emailId,
+            Password: jwt.sign({'password':req.body.password},process.env.PASSWORD_SALT)
+        });
+    let SavedtempUser = await Tempuser.create(tempUser);
+    res.status(201).json({'tempuserId':SavedtempUser._id});
 })
 
 async function Auth(req,res,next)

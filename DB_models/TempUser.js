@@ -2,11 +2,6 @@ import mongoose from "mongoose";
 
 let Users = new mongoose.Schema(
     {
-        UserName:
-        {
-            type: String,
-            required:true
-        },
         Email:
         {
             type:String,
@@ -16,6 +11,10 @@ let Users = new mongoose.Schema(
         {
             type:String,
             required:true
+        },
+        Date :
+        {
+            type:String
         }
 });
 let Schema = mongoose.model('tempusers',Users);

@@ -55,11 +55,9 @@ const Signup = () => {
       headers:{'Content-Type':'application/json', Authorization : `Bearer ${document.cookie}`}
     });
     console.log('Response: '+response.data.token);
-    document.cookie="token="+(response.data.token);
-    let res = await axios.post('http://localhost:8080/SignUp',null,{withCredentials:true,headers:{'Content-Type':'application/json', Authorization : `Bearer ${document.cookie}`}});
-    
-    navigate('/'); //This is the path to redirect user at OTP page.
+    document.cookie="token="+(response.data.token);    
     console.log("ONSIGNUP");
+    navigate('/'); //This is the path to redirect user at OTP page.
   }
 
   const Validate = (email, pass, pass2) => {
